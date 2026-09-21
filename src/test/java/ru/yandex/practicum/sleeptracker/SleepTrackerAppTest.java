@@ -138,14 +138,14 @@ public class SleepTrackerAppTest {
     public void testGetChronotypeEmptyList() {
         sleepingSessionList = new ArrayList<>();
         GetChronotype function = new GetChronotype();
-        SleepAnalysisResult<String> result = function.apply(sleepingSessionList);
+        SleepAnalysisResult<Chronotypes> result = function.apply(sleepingSessionList);
         Assertions.assertNull(result);
     }
 
     @Test
     public void testGetChronotypeNotEmptyList() {
         GetChronotype function = new GetChronotype();
-        SleepAnalysisResult<String> result = function.apply(sleepingSessionList);
+        SleepAnalysisResult<Chronotypes> result = function.apply(sleepingSessionList);
         Assertions.assertNotNull(result);
     }
 
@@ -153,22 +153,22 @@ public class SleepTrackerAppTest {
     public void testGetChronotypeOwl() {
         sleepingSessionList = List.of(new SleepingSession(LocalDateTime.of(2026,2,1,0,39), LocalDateTime.of(2026,2,1,9,40), SleepingQuality.GOOD));
         GetChronotype function = new GetChronotype();
-        SleepAnalysisResult<String> result = function.apply(sleepingSessionList);
-        Assertions.assertEquals("Сова", result.getResult());
+        SleepAnalysisResult<Chronotypes> result = function.apply(sleepingSessionList);
+        Assertions.assertEquals(Chronotypes.Сова, result.getResult());
     }
 
     @Test
     public void testGetChronotypeLark() {
         sleepingSessionList = List.of(new SleepingSession(LocalDateTime.of(2026,2,1,21,39), LocalDateTime.of(2026,2,2,6,40), SleepingQuality.GOOD));
         GetChronotype function = new GetChronotype();
-        SleepAnalysisResult<String> result = function.apply(sleepingSessionList);
-        Assertions.assertEquals("Жаворонок", result.getResult());
+        SleepAnalysisResult<Chronotypes> result = function.apply(sleepingSessionList);
+        Assertions.assertEquals(Chronotypes.Жаворонок, result.getResult());
     }
 
     @Test
     public void testGetChronotypePidgin() {
         GetChronotype function = new GetChronotype();
-        SleepAnalysisResult<String> result = function.apply(sleepingSessionList);
-        Assertions.assertEquals("Голубь", result.getResult());
+        SleepAnalysisResult<Chronotypes> result = function.apply(sleepingSessionList);
+        Assertions.assertEquals(Chronotypes.Голубь, result.getResult());
     }
 }
