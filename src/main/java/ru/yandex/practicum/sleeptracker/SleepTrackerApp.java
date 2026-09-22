@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 
 public class SleepTrackerApp {
     //src/main/resources/sleep_log.txt
-    public static List<Function<List<SleepingSession>, ? extends SleepAnalysisResult<?>>> functionList = List.of(new AmountSleepingSessions(),
+    public static List<Function<List<SleepingSession>, SleepAnalysisResult>> functionList = List.of(new AmountSleepingSessions(),
                                                                                                                 new MinimumSleepingSession(),
                                                                                                                 new MaximumSleepingSession(),
                                                                                                                 new AverageSleepingSession(),
@@ -43,12 +43,12 @@ public class SleepTrackerApp {
         if (sleepingSessionList.isEmpty()) {
             System.out.println("Список сессий пуст");
         } else {
-            List<? extends SleepAnalysisResult<?>> results = functionList.stream()
+            List<SleepAnalysisResult> results = functionList.stream()
                     .map(func -> func.apply(sleepingSessionList))
                     .toList();
 
             results.stream()
-                    .peek(result -> System.out.println(result.getDescription() + " Результат: " + result.getResult()))
+                    .peek(result -> System.out.println(result.getDescription() + " Результат: " + result))
                     .toList();
         }
     }

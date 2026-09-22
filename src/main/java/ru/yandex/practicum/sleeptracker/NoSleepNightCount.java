@@ -4,9 +4,9 @@ import java.time.Period;
 import java.util.List;
 import java.util.function.Function;
 
-public class NoSleepNightCount implements Function<List<SleepingSession>, SleepAnalysisResult<Integer>> {
+public class NoSleepNightCount implements Function<List<SleepingSession>, SleepAnalysisResult> {
     @Override
-    public SleepAnalysisResult<Integer> apply(List<SleepingSession> sleepingSessionList) {
+    public SleepAnalysisResult apply(List<SleepingSession> sleepingSessionList) {
         try {
             Period period = Period.between(sleepingSessionList.getFirst().getStartDateTime().toLocalDate(), sleepingSessionList.getLast().getEndDateTime().toLocalDate());
             int amountOfNights = period.getDays();
@@ -20,7 +20,7 @@ public class NoSleepNightCount implements Function<List<SleepingSession>, SleepA
                         else return 0;
                     })
                     .sum();
-            return new SleepAnalysisResult<>("NoSleepNightCount возвращает количество бессонных ночей.", amountOfNights - sleepNightsCount);
+            return new SleepAnalysisResult("NoSleepNightCount возвращает количество бессонных ночей.", amountOfNights - sleepNightsCount);
         } catch (Exception e) {
             System.out.println("Список сессий пуст");
             return null;
